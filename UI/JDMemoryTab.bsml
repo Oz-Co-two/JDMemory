@@ -1,0 +1,92 @@
+<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
+  <!--
+    settings-container（スクロール）の中は、部品の高さを自動で決めてくれない。
+    文字やボタン行がむき出しだと 1 画面分に伸びてしまうので、
+    全体を「中身の高さで並べる」vertical で包む。
+    タブの横幅はおよそ 90（BSML の設定行の標準幅）。
+  -->
+  <settings-container child-control-width='true' child-expand-width='true' size-delta-y='-2'>
+    <vertical child-control-height='true' child-expand-height='false' child-control-width='true' child-expand-width='true'
+              vertical-fit='PreferredSize' spacing='0.5' pad-left='1' pad-right='1' pad-bottom='2'>
+
+      <text text='~update_text' font-size='3.4' rich-text='true' word-wrapping='true' align='Center' active='~has_update'/>
+      <horizontal child-expand-width='false' child-align='MiddleCenter' active='~can_cancel_update'>
+        <button text='入れ替えを取り消す' font-size='3.2' pref-width='30' on-click='cancel_update'
+                hover-hint='準備した新しい版を消して、今の版のまま使います'/>
+      </horizontal>
+
+      <checkbox-setting text='JDMemory で JD を変える' value='enabled' apply-on-change='true' bind-value='true'
+                        hover-hint='オフにすると JD は変えずに、履歴の記録だけ行います'/>
+
+      <text text='~map_info' font-size='3.6' rich-text='true' word-wrapping='false' align='Center'/>
+      <text text='~warning_text' font-size='3.4' rich-text='true' word-wrapping='true' align='Center' active='~has_warning'/>
+
+      <!-- JD：[JD] [-1] [-0.5] [━━バー━━] [+0.5] [+1] -->
+      <horizontal spacing='0.5' child-expand-width='false' child-control-width='true' child-align='MiddleCenter' pref-height='8'>
+        <text text='JD' font-size='4.5' align='Center' pref-width='6'/>
+        <button text='-1' font-size='3.4' pref-width='9' on-click='jd_minus_1' interactable='~has_map' hover-hint='JD を 1 減らす'/>
+        <button text='-0.5' font-size='3.4' pref-width='9' on-click='jd_minus_05' interactable='~has_map' hover-hint='JD を 0.5 減らす'/>
+        <slider-setting id='jd_slider' text='' pref-width='40' value='jd_value' min='~jd_min' max='~jd_max' increment='~jd_step' show-buttons='true'
+                        apply-on-change='true' bind-value='true' formatter='jd_formatter'
+                        hover-hint='今回のジャンプ距離（0.05 刻み）。RT と連動します'/>
+        <button text='+0.5' font-size='3.4' pref-width='9' on-click='jd_plus_05' interactable='~has_map' hover-hint='JD を 0.5 増やす'/>
+        <button text='+1' font-size='3.4' pref-width='9' on-click='jd_plus_1' interactable='~has_map' hover-hint='JD を 1 増やす'/>
+      </horizontal>
+
+      <!-- RT：[RT] [-100] [-10] [━━バー━━] [+10] [+100] -->
+      <horizontal spacing='0.5' child-expand-width='false' child-control-width='true' child-align='MiddleCenter' pref-height='8'>
+        <text text='RT' font-size='4.5' align='Center' pref-width='6'/>
+        <button text='-100' font-size='3.4' pref-width='9' on-click='rt_minus_100' interactable='~has_map' hover-hint='RT を 100 ms 減らす'/>
+        <button text='-10' font-size='3.4' pref-width='9' on-click='rt_minus_10' interactable='~has_map' hover-hint='RT を 10 ms 減らす'/>
+        <slider-setting id='rt_slider' text='' pref-width='40' value='rt_value' min='~rt_min' max='~rt_max' increment='~rt_step' show-buttons='true'
+                        apply-on-change='true' bind-value='true' formatter='rt_formatter'
+                        hover-hint='今回の反応時間（5 ms 刻み）。JD と連動します'/>
+        <button text='+10' font-size='3.4' pref-width='9' on-click='rt_plus_10' interactable='~has_map' hover-hint='RT を 10 ms 増やす'/>
+        <button text='+100' font-size='3.4' pref-width='9' on-click='rt_plus_100' interactable='~has_map' hover-hint='RT を 100 ms 増やす'/>
+      </horizontal>
+
+      <!-- 値をまとめて入れるボタン -->
+      <horizontal spacing='1' child-expand-width='false' child-control-width='true' child-align='MiddleCenter'>
+        <button text='前回の値' font-size='3.2' pref-width='17' on-click='use_last' interactable='~has_history' hover-hint='この譜面で最後に遊んだ JD に戻す'/>
+        <button text='最高精度' font-size='3.2' pref-width='17' on-click='use_best' interactable='~has_best' hover-hint='この譜面でクリアした中で、精度が一番高かった JD にする'/>
+        <button text='譜面の初期値' font-size='3.2' pref-width='22' on-click='use_map_default' interactable='~has_map' hover-hint='譜面作者が設定した JD にする'/>
+        <button text='デフォルト反映' font-size='3.2' pref-width='25' on-click='apply_default' interactable='~can_apply_default' hover-hint='デフォルト設定の値をこの譜面に反映する（デフォルトを使うがオンのとき）'/>
+      </horizontal>
+
+      <!-- 区切り線 -->
+      <text text='――――――――――――――――――――――――――' font-size='3' align='Center' font-color='#777777'/>
+
+      <!-- 履歴 -->
+      <text text='~summary_text' font-size='3.8' rich-text='true' word-wrapping='false' align='Left'/>
+      <text text='~history_text' font-size='3.3' rich-text='true' word-wrapping='false' align='Left'/>
+
+      <horizontal pref-height='3'/>
+
+      <!-- デフォルト設定 -->
+      <text text='― デフォルト設定（未プレイの譜面） ―' font-size='3.8' align='Center' font-color='#aaaaaa'/>
+      <checkbox-setting text='デフォルトを使う' value='use_default_value' apply-on-change='true' bind-value='true'
+                        hover-hint='オン：未プレイの譜面はデフォルトの値で遊ぶ／オフ：譜面の初期値で遊ぶ。遊んだあとは譜面ごとの値が優先されます'/>
+      <increment-setting text='基準' value='default_mode' integer-only='true' min='0' max='1'
+                         formatter='default_mode_formatter' apply-on-change='true' bind-value='true'
+                         hover-hint='JD で固定：どの譜面も同じ距離／RT で固定：どの譜面も同じ反応時間（NJS から JD を計算）'/>
+      <slider-setting text='デフォルト JD' value='default_jd' min='~jd_min' max='~jd_max' increment='~jd_step' show-buttons='true'
+                      apply-on-change='true' bind-value='true' formatter='jd_formatter' active='~default_is_jd'/>
+      <slider-setting text='デフォルト RT' value='default_rt' min='~rt_min' max='~rt_max' increment='~rt_step' show-buttons='true'
+                      apply-on-change='true' bind-value='true' formatter='rt_formatter' active='~default_is_rt'/>
+
+      <horizontal pref-height='3'/>
+
+      <!-- その他 -->
+      <text text='― その他 ―' font-size='3.8' align='Center' font-color='#aaaaaa'/>
+      <checkbox-setting text='MODS タブの先頭に表示（次回起動から）' value='pin_tab_first' apply-on-change='true' bind-value='true'
+                        hover-hint='オン：MODS タブの並びで JDMemory を一番左にする／オフ：他の MOD と同じく名前順。切り替えはゲームを再起動すると反映されます'/>
+      <checkbox-setting text='新しい版を確認する（起動時に GitHub へ接続）' value='check_updates' apply-on-change='true' bind-value='true'
+                        hover-hint='ゲームの起動中に1回だけ、GitHub の最新リリースを見て新しい版があるか確かめます。送る情報はありません'/>
+      <checkbox-setting text='新しい版を自動で準備する（次回起動で入れ替え）' value='auto_update' apply-on-change='true' bind-value='true'
+                        hover-hint='オン：新しい版を取得し、公開された物と一致するか確かめてから置いておき、次にゲームを起動した時に入れ替えます（今のゲームの版が対象の時だけ）／オフ：知らせるだけ'/>
+
+      <horizontal pref-height='2'/>
+      <text text='~version_text' font-size='3' align='Center' font-color='#888888'/>
+    </vertical>
+  </settings-container>
+</bg>

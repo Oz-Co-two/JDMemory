@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    JDMemory のインストーラー（Windows 用・画面つき）。
+    Windows 10/11 に最初から入っている .NET Framework 4.8 で動く（ビルドは 4.7.2 向け）。
+    MOD 本体（../bin/Release/JDMemory.dll）と manifest.json を中に入れるので、先に MOD をビルドしておくこと
+    （tools/make_release.ps1 が順番にビルドする）。
+  -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyName>JDMemoryInstaller</AssemblyName>
+    <RootNamespace>JDMemoryInstaller</RootNamespace>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Product>JDMemory Installer</Product>
+    <AssemblyTitle>JDMemory Installer</AssemblyTitle>
+    <DebugType>none</DebugType>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\bin\Release\JDMemory.dll" LogicalName="JDMemory.dll" />
+    <EmbeddedResource Include="..\manifest.json" LogicalName="manifest.json" />
+  </ItemGroup>
+
+  <Target Name="CheckModBuilt" BeforeTargets="BeforeBuild">
+    <Error Condition="!Exists('..\bin\Release\JDMemory.dll')"
+           Text="先に MOD 本体をビルドしてください（dotnet build ../JDMemory.csproj -c Release）" />
+  </Target>
+
+</Project>
