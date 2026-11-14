@@ -4,6 +4,8 @@ Beat Saber（PC 1.40.8）用の MOD です。譜面（曲＋モード＋難易�
 
 *A Beat Saber (PC 1.40.8) mod that remembers your jump distance / reaction time per map and difficulty, shows your past settings and results, and lets you adjust the value for this play.*
 
+![曲を選ぶ画面の JDMemory のタブ。選んだ譜面の初期値、今回の JD と RT、これまでの履歴が出ている](docs/images/tab-history.png)
+
 ## できること
 
 - 曲選択画面の左パネル「MODS」→「JDMemory」タブに、選んだ譜面の情報と履歴を表示
@@ -23,6 +25,10 @@ Beat Saber（PC 1.40.8）用の MOD です。譜面（曲＋モード＋難易�
 - MODS タブの並びで JDMemory を先頭に表示（タブ内の設定でオフにできる。切り替えは次回起動から反映）
 - 途中でやめた（中断・やり直し）プレイも、ノーツを1つ以上処理していれば記録する（進んだ割合とその時点の精度つき）
 - ソロ・練習モードが対象（マルチ・キャンペーン・リプレイ再生は記録しない、JD も変えない）
+
+タブを下に送ると、デフォルト設定と「その他」の設定、今の版が出ます。
+
+![JDMemory のタブの下の方。デフォルト設定、その他の設定、一番下に版の表示（JDMemory v0.1.1）](docs/images/tab-settings.png)
 
 ## 必要な物
 
@@ -69,6 +75,7 @@ Beat Saber（PC 1.40.8）用の MOD です。譜面（曲＋モード＋難易�
   - タブの一番下の「その他」で、確認そのもの（「新しい版を確認する」）と自動の準備（「新しい版を自動で準備する」）をそれぞれオフにできます。
 - **インストーラーで更新**: インストーラーを起動して「更新」を押します。インストーラーは GitHub の最新版を確かめ、新しい版があればその場で取得して照合してから入れます。
 - 履歴と設定は更新しても残ります。
+- 今入っている版は、タブの一番下（「その他」の下）の「JDMemory v〇.〇.〇」で確かめられます。
 
 ## アンインストール
 

@@ -3,7 +3,7 @@
   "id": "JDMemory",
   "name": "JDMemory",
   "author": "Oz-Co2",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Remembers jump distance / reaction time per map and difficulty, shows your past settings and results, and lets you adjust the value for this play.",
   "gameVersion": "1.40.8",
   "dependsOn": {

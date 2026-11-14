@@ -5,7 +5,7 @@
     （tools/make_release.ps1 が食い違いを見つけたら止まる）。
   -->
   <PropertyGroup>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <Authors>Oz-Co2</Authors>
     <Copyright>Copyright (C) 2026 Oz-Co2</Copyright>
   </PropertyGroup>

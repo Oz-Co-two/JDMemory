@@ -1,13 +1,17 @@
 <bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
   <!--
-    settings-container（スクロール）の中は、部品の高さを自動で決めてくれない。
+    settings-container（スクロール）の中は、そのままだと部品の高さを決めてくれない。
     文字やボタン行がむき出しだと 1 画面分に伸びてしまうので、
     全体を「中身の高さで並べる」vertical で包む。
+    vertical の高さは settings-container に決めさせる（child-control-height）。
+    vertical が自分で伸び縮みする（vertical-fit）作りだと、譜面を選び直して履歴の行が増えた時に
+    スクロールの範囲が古いままになり、一番上の行と一番下の版の表示が切れる（v0.1.0 の不具合）。
     タブの横幅はおよそ 90（BSML の設定行の標準幅）。
   -->
-  <settings-container child-control-width='true' child-expand-width='true' size-delta-y='-2'>
+  <settings-container child-control-width='true' child-expand-width='true' child-control-height='true' child-expand-height='false'
+                      size-delta-y='-2'>
     <vertical child-control-height='true' child-expand-height='false' child-control-width='true' child-expand-width='true'
-              vertical-fit='PreferredSize' spacing='0.5' pad-left='1' pad-right='1' pad-bottom='2'>
+              spacing='0.5' pad-left='1' pad-right='1' pad-bottom='2'>
 
       <text text='~update_text' font-size='3.4' rich-text='true' word-wrapping='true' align='Center' active='~has_update'/>
       <horizontal child-expand-width='false' child-align='MiddleCenter' active='~can_cancel_update'>
