@@ -20,7 +20,7 @@ Beat Saber（PC 1.40.8）用の MOD です。譜面（曲＋モード＋難易�
 
 まだ遊んでいない譜面をどの JD で始めるか（デフォルト設定）と、その他の設定は、タブを下に送ると出ます。一番下に今の版が出ます。
 
-![JDMemory のタブの下の方。デフォルト設定、その他の設定、一番下に版の表示（JDMemory v0.1.1）](docs/images/tab-settings.png)
+![JDMemory のタブの下の方。デフォルト設定、その他の設定、一番下に版の表示](docs/images/tab-settings.png)
 
 ## できること
 
